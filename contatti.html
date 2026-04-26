@@ -343,17 +343,26 @@ form.addEventListener('submit', function(e) {
     return;
   }
 
-  // se tutto ok lascia inviare a FormSubmit, poi mostra successo
-  // (FormSubmit redirect non funziona in locale, gestiamo lato client)
+  // invio AJAX a FormSubmit
   e.preventDefault();
-  form.style.display = 'none';
-  document.getElementById('successMsg').style.display = 'block';
 
-  // in produzione: rimuovi e.preventDefault() sopra e lascia inviare il form
-  // oppure usa fetch per invio AJAX
-  fetch(form.action, {
-    method: 'POST',
-    body: new FormData(form)
+  const data = new FormData(form);
+  const obj  = {};
+  data.forEach((v, k) => { if (!k.startsWith('_honey')) obj[k] = v; });
+
+  fetch('https://formsubmit.co/ajax/impiantisamar@gmail.com', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body:    JSON.stringify(obj)
+  })
+  .then(r => r.json())
+  .then(() => {
+    form.style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  })
+  .catch(() => {
+    form.style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
   });
 });
 
