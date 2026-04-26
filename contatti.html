@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contatti – SAMAR SRLS</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { overflow-x: hidden; width: 100%; }
+
+:root {
+  --bg:    #ffffff;
+  --bg2:   #f2f2f2;
+  --text:  #111111;
+  --muted: #555555;
+  --card:  #ffffff;
+  --border:#dddddd;
+  --shadow:rgba(0,0,0,0.09);
+}
+[data-theme="dark"] {
+  --bg:    #111111;
+  --bg2:   #1a1a1a;
+  --text:  #ffffff;
+  --muted: #cccccc;
+  --card:  #1e1e1e;
+  --border:#333333;
+  --shadow:rgba(0,0,0,0.5);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .3s, color .3s;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAVBAR ── */
+nav {
+  background: #0a5c2c;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.35);
+  flex-shrink: 0;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: white;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.nav-brand {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+  display: none;
+}
+
+.nav-back {
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-back:hover { color: white; }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#themeBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.6);
+  background: rgba(255,255,255,.15);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s;
+}
+#themeBtn:hover { background: rgba(255,255,255,.3); }
+
+/* ── MAIN ── */
+main {
+  flex: 1;
+  padding: 36px 20px 48px;
+  max-width: 560px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+main h1 {
+  font-size: 24px;
+  color: #0f7a3b;
+  margin-bottom: 6px;
+}
+
+main > p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+/* ── FORM ── */
+.form-card {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow);
+  padding: 24px 20px;
+  transition: background .3s;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--muted);
+  margin-bottom: 6px;
+  letter-spacing: .3px;
+}
+
+label .req {
+  color: #e53935;
+  margin-left: 2px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  background: var(--bg);
+  color: var(--text);
+  transition: border-color .2s, background .3s, color .3s;
+  outline: none;
+  font-family: Arial, sans-serif;
+}
+
+input:focus, textarea:focus {
+  border-color: #0f7a3b;
+}
+
+input.invalid, textarea.invalid {
+  border-color: #e53935;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.error-msg {
+  font-size: 12px;
+  color: #e53935;
+  margin-top: 4px;
+  display: none;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: #0f7a3b;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background .2s;
+}
+
+.submit-btn:hover { background: #0a5c2c; }
+
+/* ── SUCCESS ── */
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.success-msg .icon { font-size: 52px; margin-bottom: 12px; }
+.success-msg h2 { color: #0f7a3b; margin-bottom: 8px; }
+.success-msg p { color: var(--muted); font-size: 14px; }
+
+/* ── FOOTER ── */
+footer {
+  background: #0a5c2c;
+  color: rgba(255,255,255,.75);
+  text-align: center;
+  padding: 18px 20px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 560px) {
+  nav { padding: 0 28px; }
+  .nav-brand { display: block; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a class="nav-left" href="samar.html" title="Torna alla Home">
+    <img src="logo.jpeg" class="nav-logo" alt="Logo Samar">
+    <span class="nav-brand">SAMAR SRLS</span>
+  </a>
+  <div class="nav-right">
+    <a class="nav-back" href="samar.html">← Home</a>
+    <button id="themeBtn" aria-label="Tema">🌙</button>
+  </div>
+</nav>
+
+<!-- FORM -->
+<main>
+  <h1>Contattaci</h1>
+  <p>Compila il modulo e ti risponderemo al più presto.</p>
+
+  <div class="form-card">
+    <form id="contactForm" action="https://formsubmit.co/impiantisamar@gmail.com" method="POST" novalidate>
+
+      <!-- FormSubmit config -->
+      <input type="hidden" name="_subject" value="Nuovo contatto da sito SAMAR">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="">
+      <input type="text" name="_honey" style="display:none">
+
+      <div class="form-group">
+        <label>Nome e Cognome</label>
+        <input type="text" name="nome" placeholder="Mario Rossi">
+      </div>
+
+      <div class="form-group">
+        <label>Telefono <span class="req">*</span></label>
+        <input type="tel" id="telefono" name="telefono" placeholder="+39 334 501 0567" required>
+        <div class="error-msg" id="err-telefono">Inserisci un numero di telefono valido</div>
+      </div>
+
+      <div class="form-group">
+        <label>Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="nome@email.com" required>
+        <div class="error-msg" id="err-email">Inserisci un indirizzo email valido</div>
+      </div>
+
+      <div class="form-group">
+        <label>Indirizzo <span class="req">*</span></label>
+        <input type="text" id="indirizzo" name="indirizzo" placeholder="Via Roma 1, Pontedera (PI)" required>
+        <div class="error-msg" id="err-indirizzo">Inserisci il tuo indirizzo</div>
+      </div>
+
+      <div class="form-group">
+        <label>Servizi richiesti / Note</label>
+        <textarea name="note" placeholder="Descrivi il servizio che ti interessa (fotovoltaico, impianto elettrico, termoidraulica...)"></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Invia Richiesta</button>
+    </form>
+
+    <div class="success-msg" id="successMsg">
+      <div class="icon">✅</div>
+      <h2>Messaggio inviato!</h2>
+      <p>Ti contatteremo al più presto.<br>Grazie per aver scelto SAMAR SRLS.</p>
+    </div>
+  </div>
+</main>
+
+<footer>&copy; 2026 SAMAR SRLS — Tutti i diritti riservati</footer>
+
+<script>
+/* ── DARK/LIGHT ── */
+const html = document.documentElement;
+const btn  = document.getElementById('themeBtn');
+
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('theme', t);
+}
+applyTheme(localStorage.getItem('theme') || 'light');
+btn.addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+/* ── VALIDAZIONE ── */
+const form = document.getElementById('contactForm');
+
+function validateField(id, errId, checkFn) {
+  const el  = document.getElementById(id);
+  const err = document.getElementById(errId);
+  const ok  = checkFn(el.value.trim());
+  el.classList.toggle('invalid', !ok);
+  err.style.display = ok ? 'none' : 'block';
+  return ok;
+}
+
+function isPhone(v)  { return v.length >= 6; }
+function isEmail(v)  { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function notEmpty(v) { return v.length > 0; }
+
+form.addEventListener('submit', function(e) {
+  const okTel  = validateField('telefono',  'err-telefono',  isPhone);
+  const okMail = validateField('email',     'err-email',     isEmail);
+  const okAddr = validateField('indirizzo', 'err-indirizzo', notEmpty);
+
+  if (!okTel || !okMail || !okAddr) {
+    e.preventDefault();
+    return;
+  }
+
+  // se tutto ok lascia inviare a FormSubmit, poi mostra successo
+  // (FormSubmit redirect non funziona in locale, gestiamo lato client)
+  e.preventDefault();
+  form.style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+
+  // in produzione: rimuovi e.preventDefault() sopra e lascia inviare il form
+  // oppure usa fetch per invio AJAX
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form)
+  });
+});
+
+// rimuove invalid al typing
+['telefono','email','indirizzo'].forEach(id => {
+  document.getElementById(id).addEventListener('input', function() {
+    this.classList.remove('invalid');
+    document.getElementById('err-' + id).style.display = 'none';
+  });
+});
+</script>
+</body>
+</html>
