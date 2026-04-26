@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAMAR SRLS</title>
+<style>
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* ── VARIABILI TEMA ── */
+:root {
+  --bg:     #ffffff;
+  --bg2:    #f2f2f2;
+  --text:   #111111;
+  --muted:  #444444;
+  --card:   #ffffff;
+  --shadow: rgba(0,0,0,0.09);
+  --border: #dddddd;
+}
+[data-theme="dark"] {
+  --bg:     #111111;
+  --bg2:    #1a1a1a;
+  --text:   #ffffff;
+  --muted:  #cccccc;
+  --card:   #1e1e1e;
+  --shadow: rgba(0,0,0,0.5);
+  --border: #333333;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+  transition: background .3s, color .3s;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #0a5c2c;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.35);
+  width: 100%;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.nav-logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: white;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.nav-brand {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+  display: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 7px 9px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: background .2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: rgba(255,255,255,.2);
+}
+
+/* PULSANTE DARK/LIGHT */
+#themeBtn {
+  margin-left: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.6);
+  background: rgba(255,255,255,.15);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s;
+  line-height: 1;
+}
+
+#themeBtn:hover { background: rgba(255,255,255,.3); }
+
+/* ── HERO ── */
+#home {
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  padding: 48px 20px 42px;
+  text-align: center;
+  transition: background .3s, color .3s;
+}
+
+#home h1 {
+  font-size: 22px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+#home > p {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.btn-primary  { background: #f5c542; color: #111; }
+.btn-secondary { background: white;   color: #0a5c2c; }
+
+/* ── SEZIONI GENERICHE ── */
+.sec {
+  width: 100%;
+  padding: 38px 20px;
+  text-align: center;
+  background: var(--bg);
+  transition: background .3s, color .3s;
+}
+
+.sec.alt { background: var(--bg2); }
+
+.sec h2 {
+  font-size: 21px;
+  color: #0f7a3b;
+  margin-bottom: 10px;
+}
+
+.sec p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ── SERVIZI ── */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-width: 480px;
+  margin: 18px auto 0;
+}
+
+.service-card {
+  background: var(--card);
+  border-left: 4px solid #0f7a3b;
+  border-radius: 8px;
+  padding: 14px 12px;
+  box-shadow: 0 2px 8px var(--shadow);
+  font-size: 13px;
+  font-weight: bold;
+  color: #0f7a3b;
+  text-align: left;
+  transition: background .3s;
+}
+
+.service-card span {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+/* ── CAROSELLO ── */
+.carousel-sec {
+  width: 100%;
+  padding: 36px 0 38px;
+  background: var(--bg);
+  text-align: center;
+  transition: background .3s;
+}
+
+.carousel-sec h2 {
+  font-size: 21px;
+  color: #0f7a3b;
+  margin-bottom: 18px;
+}
+
+.carousel-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform .45s ease;
+  width: 100%;
+}
+
+.carousel-track img {
+  width: 100%;
+  min-width: 100%;
+  height: 250px;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+}
+
+.c-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10,92,44,.75);
+  border: none;
+  color: white;
+  font-size: 24px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-btn.prev { left: 8px; }
+.c-btn.next { right: 8px; }
+
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 0 16px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: background .3s;
+}
+
+.dot.active { background: #0f7a3b; }
+
+/* ── CONTATTI ── */
+.contact-wrap {
+  max-width: 440px;
+  margin: 18px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-card {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px var(--shadow);
+  overflow: hidden;
+  transition: background .3s;
+}
+
+.contact-card a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  transition: background .2s;
+}
+
+.contact-card a:last-child { border-bottom: none; }
+.contact-card a:hover { background: rgba(15,122,59,.07); }
+
+.c-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #0f7a3b;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.c-label {
+  font-size: 10px;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.c-value {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: #0a5c2c;
+  color: rgba(255,255,255,.85);
+  text-align: center;
+  padding: 28px 20px;
+  font-size: 13px;
+  width: 100%;
+}
+
+footer img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: white;
+  padding: 2px;
+  margin-bottom: 8px;
+}
+
+footer strong { color: white; font-size: 15px; }
+footer p { margin-top: 5px; opacity: .7; }
+footer .copy { margin-top: 14px; font-size: 12px; opacity: .55; }
+
+/* ── DESKTOP ── */
+@media (min-width: 560px) {
+  .nav-brand  { display: block; }
+  nav         { padding: 0 28px; }
+  #home h1    { font-size: 32px; }
+  .btn-group  { flex-direction: row; max-width: none; width: auto; }
+  .btn        { width: auto; padding: 14px 26px; }
+  .carousel-track img { height: 440px; }
+  .c-btn      { width: 44px; height: 44px; font-size: 28px; }
+  .c-btn.prev { left: 14px; }
+  .c-btn.next { right: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-left">
+    <img src="logo.jpeg" class="nav-logo" alt="Logo">
+    <span class="nav-brand">SAMAR SRLS</span>
+  </div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#servizi">Servizi</a>
+      <a href="contatti.html" target="_blank">Contatti</a>
+    </div>
+    <button id="themeBtn" aria-label="Tema">🌙</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <h1>Impianti elettrici,<br>termoidraulici e fotovoltaici</h1>
+  <p>Installazione e manutenzione a Pontedera e provincia</p>
+  <div class="btn-group">
+    <a class="btn btn-primary"   href="contatti.html" target="_blank">Richiedi Preventivo</a>
+    <a class="btn btn-secondary" href="tel:+393345010567">📞 Chiama Ora</a>
+  </div>
+</section>
+
+<!-- SERVIZI -->
+<div class="sec alt" id="servizi">
+  <h2>I Nostri Servizi</h2>
+  <p>Soluzioni complete per privati e aziende nel settore energia e impiantistica.</p>
+  <div class="services-grid">
+    <div class="service-card"><span>☀️</span>Fotovoltaico</div>
+    <div class="service-card"><span>⚡</span>Impianti Elettrici</div>
+    <div class="service-card"><span>💧</span>Termoidraulica</div>
+    <div class="service-card"><span>❄️</span>Pompe di Calore</div>
+  </div>
+</div>
+
+<!-- CAROSELLO -->
+<div class="carousel-sec">
+  <h2>I Nostri Lavori</h2>
+  <div class="carousel-wrap">
+    <button class="c-btn prev" onclick="slide(-1)">&#8249;</button>
+    <div class="carousel-track" id="track">
+      <img src="1.jpeg" alt="Lavoro 1">
+      <img src="2.jpeg" alt="Lavoro 2">
+      <img src="3.jpeg" alt="Lavoro 3">
+      <img src="4.jpeg" alt="Lavoro 4">
+      <img src="5.jpeg" alt="Lavoro 5">
+    </div>
+    <button class="c-btn next" onclick="slide(1)">&#8250;</button>
+  </div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<!-- CHI SIAMO -->
+<div class="sec">
+  <h2>Chi Siamo</h2>
+  <p>Azienda specializzata nel montaggio e manutenzione di impianti elettrici e fotovoltaici, operativa su tutto il territorio di Pontedera e provincia.</p>
+</div>
+
+<!-- CONTATTI -->
+<div class="sec alt" id="contatti">
+  <h2>Contatti</h2>
+  <p>Siamo a tua disposizione per preventivi e informazioni.</p>
+  <div class="contact-wrap">
+    <div class="contact-card">
+      <a href="tel:+393345010567">
+        <div class="c-icon">📞</div>
+        <div><span class="c-label">Telefono</span><span class="c-value">+39 334 501 0567</span></div>
+      </a>
+      <a href="mailto:impiantisamar@gmail.com">
+        <div class="c-icon">✉️</div>
+        <div><span class="c-label">Email</span><span class="c-value">impiantisamar@gmail.com</span></div>
+      </a>
+    </div>
+    <div class="contact-card">
+      <a href="#">
+        <div class="c-icon">📍</div>
+        <div><span class="c-label">Zona operativa</span><span class="c-value">Pontedera e provincia (PI)</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <img src="logo.jpeg" alt="Logo Samar">
+  <div><strong>SAMAR SRLS</strong></div>
+  <p>Impianti elettrici, termoidraulici e fotovoltaici</p>
+  <p>📞 334 501 0567 &nbsp;|&nbsp; ✉️ impiantisamar@gmail.com</p>
+  <p class="copy">&copy; 2026 SAMAR SRLS — Tutti i diritti riservati</p>
+</footer>
+
+<script>
+/* ── CAROUSEL ── */
+const N = 5;
+let cur = 0, sx = 0;
+const track = document.getElementById('track');
+const dotsEl = document.getElementById('dots');
+
+for (let i = 0; i < N; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' active' : '');
+  d.onclick = () => go(i);
+  dotsEl.appendChild(d);
+}
+
+function go(n) {
+  cur = (n + N) % N;
+  track.style.transform = `translateX(-${cur * 100}%)`;
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+}
+
+function slide(dir) { go(cur + dir); }
+
+track.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+track.addEventListener('touchend',   e => {
+  const dx = sx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 40) slide(dx > 0 ? 1 : -1);
+});
+
+setInterval(() => slide(1), 4000);
+
+/* ── DARK / LIGHT ── */
+const html = document.documentElement;
+const btn  = document.getElementById('themeBtn');
+
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('theme', t);
+}
+
+applyTheme(localStorage.getItem('theme') || 'light');
+btn.addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+/* ── NAV ACTIVE ── */
+const secs = [...document.querySelectorAll('[id]')].filter(el => ['home','servizi','contatti'].includes(el.id));
+const links = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let id = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 80) id = s.id; });
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+}, { passive: true });
+</script>
+</body>
+</html>
