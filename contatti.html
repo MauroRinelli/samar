@@ -253,14 +253,8 @@ footer {
   <p>Compila il modulo e ti risponderemo al più presto.</p>
 
   <div class="form-card">
-    <form id="contactForm" action="https://formsubmit.co/impiantisamar@gmail.com" method="POST" novalidate>
-
-      <!-- FormSubmit config -->
-      <input type="hidden" name="_subject" value="Nuovo contatto da sito SAMAR">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://samarfotovoltaico.netlify.app/grazie.html">
-      <input type="hidden" name="_autoresponse" value="Grazie per averci contattato! Abbiamo ricevuto la tua richiesta e ti contatteremo al più presto. Il team SAMAR è a tua disposizione per qualsiasi informazione su impianti fotovoltaici, elettrici e termoidraulici. A presto! — Team SAMAR">
-      <input type="text" name="_honey" style="display:none">
+    <form id="contactForm" name="contatto" method="POST" data-netlify="true" action="/grazie.html" novalidate>
+      <input type="hidden" name="form-name" value="contatto">
 
       <div class="form-group">
         <label>Nome e Cognome</label>
