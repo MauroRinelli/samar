@@ -328,15 +328,32 @@ function isEmail(v)  { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function notEmpty(v) { return v.length > 0; }
 
 form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
   const okTel  = validateField('telefono',  'err-telefono',  isPhone);
   const okMail = validateField('email',     'err-email',     isEmail);
   const okAddr = validateField('indirizzo', 'err-indirizzo', notEmpty);
 
-  if (!okTel || !okMail || !okAddr) {
-    e.preventDefault();
-    return;
-  }
-  // validazione ok → lascia inviare il form normalmente a FormSubmit
+  if (!okTel || !okMail || !okAddr) return;
+
+  const btn = form.querySelector('.submit-btn');
+  btn.textContent = 'Invio in corso...';
+  btn.disabled = true;
+
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(new FormData(form)).toString()
+  })
+  .then(() => {
+    form.style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  })
+  .catch(() => {
+    btn.textContent = 'Invia Richiesta';
+    btn.disabled = false;
+    alert('Errore nell\'invio. Riprova o contattaci direttamente.');
+  });
 });
 
 // rimuove invalid al typing
